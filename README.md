@@ -1,6 +1,11 @@
 # Data analysis
 - Document here the project: Anaemia_Classification
-- Description: Project Description
+- Description: There are numerous components in human blood, but they can be categorized broadly into three groups:
+1) Red Blood Cells (RBC)
+1) White Blood Cells ( WBC)
+3) Platelets.
+
+RBC are responsible for the red color of blood. Their distinctive doughnut shape makes them easy to identify.
 - Data Source:
 - Type of analysis:
 
