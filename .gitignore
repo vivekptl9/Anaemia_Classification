@@ -10,3 +10,7 @@ raw_data/
 #Link to the data set on OneDrive
 https://1drv.ms/u/s!AsFACbquQ8BnxiMTtektdyebUoak?e=Q8cYQU
 https://1drv.ms/u/s!AsFACbquQ8BnzGgnHny4QAthVtEg?e=7WM4s8
+
+#Ignoring Jupyterbnotebook and large numpy array files.
+*.ipynb
+*.npy
