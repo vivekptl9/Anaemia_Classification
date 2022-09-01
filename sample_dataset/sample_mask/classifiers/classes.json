@@ -1,0 +1,15 @@
+{
+  "pathClasses": [
+    {
+      "name": "Unclassified"
+    },
+    {
+      "name": "RBC",
+      "color": -65536
+    },
+    {
+      "name": "Sickle",
+      "color": -16776961
+    }
+  ]
+}
