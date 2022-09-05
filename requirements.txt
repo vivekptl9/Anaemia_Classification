@@ -29,3 +29,6 @@ memoized-property
 termcolor
 opencv-python
 tensorflow
+
+#Website
+streamlit
