@@ -6,6 +6,7 @@ raw_data/
 *.csv
 **/__pycache__/
 .env
+Model/
 
 #Link to the data set on OneDrive
 https://1drv.ms/u/s!AsFACbquQ8BnzGnvu3SR3WmnlKID?e=DqN6Vc
