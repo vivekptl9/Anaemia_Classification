@@ -8,42 +8,43 @@ from keras.layers import Dense, Flatten, Conv2D, MaxPooling2D
 import os
 import seaborn as sns
 from sklearn import metrics
+import pickle
 
-#Loading the data into a numpy array:
-SIZE = int(input("Enter the value for desizing the image (Eg. 512 x 512:  "))
-
-
+############################################################################################################################################################
+                                        #""" LOADING THE DATASETS INTO NUMPY ARRAY """
+############################################################################################################################################################
 
 def data_loading():
     with open('/home/lepton/Downloads/Anaemia/Anaemia/pictures_array.npy', 'rb') as f:
         pics_all = np.load(f)
     with open('/home/lepton/Downloads/Anaemia/Anaemia/labels_array.npy', 'rb') as f:
         labels_all = np.load(f)
-    #print(pics_all[0].shape)
     return pics_all,labels_all
 
-def train_test_split(n_test_percent):
+############################################################################################################################################################
+                                        #""" DDIVIDING DATA INTO TRAIN AND TEST SETS """
+############################################################################################################################################################
+
+def train_test_split():
     pics_all, labels_all = data_loading()
 
     n_samples = len(pics_all)
-    n_test = int(n_test_percent*n_samples)
+    n_test = int(0.2*n_samples)
     n_train = int(n_samples - n_test)
 
-    train_set = pics_all[0:n_train]
-    test_set = pics_all[n_train: n_samples]
-    train_labels = labels_all[0:n_train]
-    test_labels = labels_all[n_train: n_samples]
-
-    """ Dividing the dataset in to training and test sets """
-    
-    X_train = train_set
-    y_train = train_labels
-    X_test = test_set
-    y_test = test_labels
+    X_train = pics_all[0:n_train]
+    X_test = pics_all[n_train: n_samples]
+    y_train = labels_all[0:n_train]
+    y_test = labels_all[n_train: n_samples]
+    print(X_train,X_test)
     return X_train,X_test,y_train,y_test
 
-def feature_extension(X_train,X_test):
-
+###########################################################################################################################################################
+                                       # """ EXTRACTION OF FEATURES USING CNN """
+###########################################################################################################################################################
+    
+def feature_extension():
+    X_train,X_test,y_train,y_test = train_test_split()
     activation = 'sigmoid'          #Choose the activation function as sigmoid,relu,softmax depending on your choidce and data.
     feature_ext = Sequential()      # Defining the model
 
@@ -62,23 +63,50 @@ def feature_extension(X_train,X_test):
     return Features , X_train_RF, X_test_RF
 
 
-""" Putting  """
-def random_forest(n_test_percent):
-    X_train,X_test,y_train,y_test = train_test_split(n_test_percent)
-    Features, X_train_RF, X_test_RF = feature_extension(X_train, X_test)
+############################################################################################################################################################
+                                        #""" DEFINING RANDOM FOREST MODEL TO USE FEATURE FROM CNN """
+############################################################################################################################################################
+
+# def random_forest():
+#     X_train,X_test,y_train,y_test = train_test_split()
+#     Features, X_train_RF, X_test_RF = feature_extension()
     
-    model = RandomForestClassifier(n_estimators=50,random_state=42)
-    RF_model = model.fit(X_train_RF,y_train)
-    prediction_RF = RF_model.predict(X_test_RF)
-    return("Accuracy = ", metrics.accuracy_score(y_test,prediction_RF))
+#     model = RandomForestClassifier(n_estimators=50,random_state=42)
+#     RF_model = model.fit(X_train_RF,y_train)
+#     prediction_RF = RF_model.predict(X_test_RF)
+#     Prediction_accuracy = metrics.accuracy_score(y_test,prediction_RF)
+#     return Prediction_accuracy
+
+# ############################################################################################################################################################
+#                                         #""" SAVING THE MODEL """
+# ############################################################################################################################################################
+
+# def save_model():
+#     RF_model, Prediction_accuracy = random_forest()
+#     filename = 'CNN-RF.sav'
+#     pickle.dump(RF_model, open(filename, 'wb'))
+#     #return filename,prediction_RF
+
+# ############################################################################################################################################################
+#                                         #""" LOADING MODEL """
+# ############################################################################################################################################################
 
 # def Image_prediction():
-#     n=int(input(f"Give the number between 0 and {n_test}")) #Select the index of image to be loaded for testing
-#     img = x_test[n]
-#     plt.imshow(img)
-#     input_img = np.expand_dims(img, axis=0) #Expand dims so the input is (num images, x, y, c)
-#     input_img_features=feature_ext.predict(input_img)
-#     prediction_RF = RF_model.predict(input_img_features)[0] 
-#     print("The predicted label for this image is: ", prediction_RF)
-#     print("The actual label for this image is: ", test_labels[n])
-#     print(img.shape)   
+#     save_model()
+#     RF_model, Prediction_accuracy = random_forest()
+#     X_train,X_test,y_train,y_test = train_test_split()
+#     model =  pickle.load(open("CNN-RF.sav", "rb"))
+#     return Prediction_accuracy  
+
+# Image_prediction()
+    
+    
+#     # n=int(input(f"Give the number between 0 and {len(X_test)}")) #Select the index of image to be loaded for testing
+#     # img = X_test[n]
+#     # plt.imshow(img)
+#     # input_img = np.expand_dims(img, axis=0) #Expand dims so the input is (num images, x, y, c)
+#     # input_img_features=feature_ext.predict(input_img)
+#     # prediction_RF = RF_model.predict(input_img_features)[0] 
+#     # print("The predicted label for this image is: ", prediction_RF)
+#     # print("The actual label for this image is: ", test_labels[n])
+#     # print(img.shape)   
