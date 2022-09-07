@@ -33,3 +33,5 @@ tensorflow
 
 #Website
 streamlit
+uvicorn
+PIL
