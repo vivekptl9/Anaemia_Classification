@@ -133,7 +133,7 @@ proba_final = 99
 proba_cnn = 99
 proba_rf = 92
 
-url = 'http://127.0.0.1:8000/predict'
+url = 'http://127.0.0.1:8080/predict'
 proba_final = requests.get(url).json()['response']
 
 st.header(f'The probability for Anaemia in the given sample is: {proba_final} %')
