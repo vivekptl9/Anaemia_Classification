@@ -49,7 +49,7 @@ def feature_extension():
     feature_ext = Sequential()      # Defining the model
 
     # 1st Convulation input layer
-    Features = feature_ext.add(Conv2D(200,3,activation = activation,padding = "same", input_shape=(SIZE,SIZE, 3)))
+    Features = feature_ext.add(Conv2D(200,3,activation = activation,padding = "same", input_shape=(224,224, 3)))
     #Total layer for extraction of the features
     Features = feature_ext.add(Conv2D(150, kernel_size=(3, 3), activation=activation, padding = 'same'))
     Features = feature_ext.add(Conv2D(100, kernel_size=(3), activation=activation)) # kernel_size = 3 <==> (3, 3)
@@ -66,26 +66,28 @@ def feature_extension():
 ############################################################################################################################################################
                                         #""" DEFINING RANDOM FOREST MODEL TO USE FEATURE FROM CNN """
 ############################################################################################################################################################
+def random_forest():
+    X_train,X_test,y_train,y_test = train_test_split()
+    Features, X_train_RF, X_test_RF = feature_extension()
+    #Training the feature extracted training set with Random forest
+    model = RandomForestClassifier(n_estimators=50,random_state=42)
+    RF_model = model.fit(X_train_RF,y_train)
+    # Testing the feature extracted training set with Random forest
+    prediction_RF = model.predict(X_test_RF)
+    Prediction_accuracy = metrics.accuracy_score(y_test,prediction_RF)
+    return RF_model,Prediction_accuracy
 
-# def random_forest():
-#     X_train,X_test,y_train,y_test = train_test_split()
-#     Features, X_train_RF, X_test_RF = feature_extension()
-    
-#     model = RandomForestClassifier(n_estimators=50,random_state=42)
-#     RF_model = model.fit(X_train_RF,y_train)
-#     prediction_RF = RF_model.predict(X_test_RF)
-#     Prediction_accuracy = metrics.accuracy_score(y_test,prediction_RF)
-#     return Prediction_accuracy
 
 # ############################################################################################################################################################
 #                                         #""" SAVING THE MODEL """
 # ############################################################################################################################################################
 
-# def save_model():
-#     RF_model, Prediction_accuracy = random_forest()
-#     filename = 'CNN-RF.sav'
-#     pickle.dump(RF_model, open(filename, 'wb'))
-#     #return filename,prediction_RF
+def save_model():
+    RF_model, Prediction_accuracy = random_forest()
+    filename = 'CNN-RF2.sav'
+    pickle.dump(RF_model, open(filename, 'wb'))
+    #return filename,prediction_RF
+#save_model()
 
 # ############################################################################################################################################################
 #                                         #""" LOADING MODEL """

@@ -12,3 +12,4 @@ https://1drv.ms/u/s!AsFACbquQ8BnzGnvu3SR3WmnlKID?e=DqN6Vc
 
 #Ignoring Jupyterbnotebook and large numpy array files.
 *.npy
+*.ipynb
