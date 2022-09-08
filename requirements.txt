@@ -8,6 +8,7 @@ wheel>=0.29
 numpy
 pandas
 scikit-learn
+matplotlib
 
 # tests/linter
 black
@@ -29,3 +30,8 @@ memoized-property
 termcolor
 opencv-python
 tensorflow
+
+#Website
+streamlit
+uvicorn
+PIL

@@ -28,7 +28,7 @@ def data_loading():
 def train_test_split():
     pics_all, labels_all = data_loading()
 
-    n_samples = len(pics_all)
+    n_samples = len(pics_all)-300
     n_test = int(0.2*n_samples)
     n_train = int(n_samples - n_test)
 
@@ -86,19 +86,18 @@ def save_model():
     RF_model, Prediction_accuracy = random_forest()
     filename = 'CNN-RF2.sav'
     pickle.dump(RF_model, open(filename, 'wb'))
-    #return filename,prediction_RF
-#save_model()
+    return filename
 
 # ############################################################################################################################################################
 #                                         #""" LOADING MODEL """
 # ############################################################################################################################################################
 
-# def Image_prediction():
-#     save_model()
-#     RF_model, Prediction_accuracy = random_forest()
-#     X_train,X_test,y_train,y_test = train_test_split()
-#     model =  pickle.load(open("CNN-RF.sav", "rb"))
-#     return Prediction_accuracy  
+def Image_prediction():
+    filename = save_model()
+    RF_model, Prediction_accuracy = random_forest()
+    X_train,X_test,y_train,y_test = train_test_split()
+    model =  pickle.load(open(filename, "rb"))
+    return Prediction_accuracy  
 
 # Image_prediction()
     
