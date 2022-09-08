@@ -62,7 +62,6 @@ with open('one_img.npy', 'rb') as f:
 
 
 
-
 #---------------------------------#
 # Image Upload
 st.subheader('Please upload your image for analysis below:')
@@ -109,8 +108,7 @@ col2.subheader('Computer generated Image from Upload')
 
 plt.figure(figsize=(5,5), frameon=False)
 if uploaded_image == None:
-    plt.imshow(picture, cmap='Reds')
-    col2.pyplot(plt)
+    col2.image('image.png')
 else:
     col2.image(im, width = 300)
 
@@ -133,8 +131,8 @@ proba_final = 99
 proba_cnn = 99
 proba_rf = 92
 
-url = 'http://127.0.0.1:8080/predict'
-proba_final = requests.get(url).json()['response']
+#url = 'http://127.0.0.1:8080/predict'
+#proba_final = requests.get(url).json()['response']
 
 st.header(f'The probability for Anaemia in the given sample is: {proba_final} %')
 st.text(f'Our DeepLearning model predicts {proba_cnn}% probability and our Machine Learning model predicts {proba_rf}%')
