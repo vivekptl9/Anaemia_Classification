@@ -88,29 +88,29 @@ if uploaded_image != None:
 #---------------------------------#
 # Splitting Website into 2 columns (same size)
 
-col1, col2 = st.columns((1,1))
+col1, col2, col3 = st.columns((1,2,1))
 
-col1.subheader('Uploaded Image')
+# col1.subheader('Uploaded Image')
 
 plt.figure(figsize=(5,5), frameon=False)
 if uploaded_image == None:
     plt.imshow(picture, cmap='Reds')
-    col1.pyplot(plt)
-    col1.text('(Shows sample images as long as nothing is uploaded)')
+    col2.pyplot(plt)
+    col2.text('(Shows sample image as long as nothing is uploaded)')
 else:
-    col1.image(im, width = 300)
+    col2.image(im, width = 600)
 # call function to rescale picture and save as uploaded_rescaled
 # call function to get image with outlines and sickle cells with rectangles if there (uploaded_outlines)
 
 
 
-col2.subheader('Computer generated Image from Upload')
+# col2.subheader('Computer generated Image from Upload')
 
-plt.figure(figsize=(5,5), frameon=False)
-if uploaded_image == None:
-    col2.image('image.png')
-else:
-    col2.image(im, width = 300)
+# plt.figure(figsize=(5,5), frameon=False)
+# if uploaded_image == None:
+#     col2.image('image.png')
+# else:
+#     col2.image(im, width = 300)
 
 
 
@@ -131,8 +131,10 @@ proba_final = 99
 proba_cnn = 99
 proba_rf = 92
 
-#url = 'http://127.0.0.1:8080/predict'
-#proba_final = requests.get(url).json()['response']
+url = 'https://anaemia-api-v2-zshg3vag6q-ey.a.run.app/predict'
+probas = requests.get(url).json()['result']
+proba_cnn = 100 * round(probas[0]['probability'],2)
+proba_rf = 100 * round(probas[1]['probability'],3)
 
-st.header(f'The probability for Anaemia in the given sample is: {proba_final} %')
-st.text(f'Our DeepLearning model predicts {proba_cnn}% probability and our Machine Learning model predicts {proba_rf}%')
+#st.header(f'The probability for Anaemia in the given sample is: {proba_final} %')
+st.header(f'Our DeepLearning model predicts {proba_cnn:.1f}% probability and our Machine Learning model predicts {proba_rf:.1f}% probability of Anaemia in the given sample!')
