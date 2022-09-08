@@ -97,6 +97,18 @@ def Image_prediction():
     RF_model, Prediction_accuracy = random_forest()
     X_train,X_test,y_train,y_test = train_test_split()
     model =  pickle.load(open(filename, "rb"))
+
+
+    # If you want to test a random image on test set 
+    # n=int(input(f"Give the number between 0 and {len(X_test)}")) #Select the index of image to be loaded for testing
+    # img = X_test[n]
+    # plt.imshow(img)
+    # input_img = np.expand_dims(img, axis=0) #Expand dims so the input is (num images, x, y, c)
+    # input_img_features=feature_ext.predict(input_img)
+    # prediction_RF = RF_model.predict(input_img_features)[0] 
+    # print("The predicted label for this image is: ", prediction_RF)
+    # print("The actual label for this image is: ", test_labels[n])
+       
     return Prediction_accuracy  
 
 # Image_prediction()
